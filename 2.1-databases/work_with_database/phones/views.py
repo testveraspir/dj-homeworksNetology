@@ -12,6 +12,15 @@ def index(request):
 def show_catalog(request):
     template = 'catalog.html'
     phone_objects = Phone.objects.all()
+    sort = request.GET.get('sort', 'name')
+    if sort == 'name':
+        phone_objects = phone_objects.order_by("name")
+    elif sort == 'min_price':
+        phone_objects = phone_objects.order_by("price")
+    elif sort == 'max_price':
+        phone_objects = phone_objects.order_by("-price")
+    else:
+        return HttpResponse("Ошибка при сортировке!")
     context = {'phones': phone_objects}
     return render(request, template, context)
 
