@@ -17,12 +17,13 @@ from django.contrib import admin
 from django.urls import path, register_converter
 
 from books.converters import DateConverter
-from books.views import books_view
+from books.views import books_view, books_by_pub_date_view
 
 register_converter(DateConverter, 'date')
 
 urlpatterns = [
     path('', books_view),
     path('books/', books_view, name='books'),
+    path('books/<date:pub_date>', books_by_pub_date_view, name='books_pub_date'),
     path('admin/', admin.site.urls),
 ]

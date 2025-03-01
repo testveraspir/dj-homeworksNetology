@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
-{% block title %}Каталог книг{% endblock %}
+{% block title %}Каталог книг по дате{% endblock %}
 {% block content %}
 <div class="container">
     <div class="header">
@@ -17,6 +16,17 @@
             <p>Дата публикации: {{ book.pub_date|date:"Y-m-d" }}</p><br>
         </div>
         {% endfor %}
+    </div>
+    <div class="pagination">
+        {% if previous_date %}
+        <a class="button button-primary" href="{% url 'books_pub_date' previous_date %}">
+            < {{ previous_date|date:"Y-m-d" }} </a>
+        {% endif %}
+        &nbsp;&nbsp;&nbsp;
+        {% if next_date %}
+        <a class="button button-primary" href="{% url 'books_pub_date' next_date %}">
+            {{ next_date|date:"Y-m-d" }} ></a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
