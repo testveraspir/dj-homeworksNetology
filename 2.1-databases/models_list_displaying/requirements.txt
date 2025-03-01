@@ -1,2 +1,4 @@
-django
+django~=5.1.6
 psycopg2-binary
+
+python-dotenv~=1.0.1
