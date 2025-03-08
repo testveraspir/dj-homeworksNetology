@@ -2,11 +2,11 @@ from django.db import models
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=100, unique=True, verbose_name='Название категории')
+    name = models.CharField(max_length=100, unique=True, verbose_name='Название раздела')
 
     class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
+        verbose_name = 'Раздел'
+        verbose_name_plural = 'Разделы'
 
     def __str__(self):
         return self.name
@@ -29,9 +29,13 @@ class Article(models.Model):
 
 
 class Scope(models.Model):
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, verbose_name='Раздел')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='scopes')
-    is_main = models.BooleanField(default=False)
+    is_main = models.BooleanField(default=False, verbose_name='Основной')
+
+    class Meta:
+        verbose_name = 'Тематика статьи'
+        verbose_name_plural = 'Тематики статьи'
 
     def __str__(self):
         return f'Scope: {self.article.title} - {self.tag.name}'
