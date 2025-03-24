@@ -64,19 +64,19 @@ Content-Type: application/json
 ###
 
 # обновляем записи на складе
-PATCH {{baseUrl}}/stocks/3/
+PATCH {{baseUrl}}/stocks/1/
 Content-Type: application/json
 
 {
   "positions": [
     {
-      "product": 2,
+      "product": 1,
       "quantity": 100,
       "price": 130.80
     },
     {
       "product": 3,
-      "quantity": 243,
+      "quantity": 250,
       "price": 145
     }
   ]
@@ -92,4 +92,10 @@ Content-Type: application/json
 
 # получение всех складов
 GET {{baseUrl}}/stocks/
+Content-Type: application/json
+
+###
+
+# поиск складов, где есть определённый продукт (по названию)
+GET {{baseUrl}}/stocks/?search=помид
 Content-Type: application/json
