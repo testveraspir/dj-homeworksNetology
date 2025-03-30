@@ -58,3 +58,12 @@ Content-Type: application/json
 GET {{baseUrl}}/advertisements/?status=CLOSED
 Content-Type: application/json
 Authorization: Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
+
+###
+
+ # Добавить в избранное
+POST {{baseUrl}}/advertisements/9/favorite/
+Content-Type:application/json
+Authorization:Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
+
+###
