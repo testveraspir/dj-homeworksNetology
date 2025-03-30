@@ -18,14 +18,14 @@ Content-Type: application/json
 Authorization: Token 013bde0181b311844942f95efb90b394f12ac3d0
 
 {
-  "title": "Утюг",
+  "title": "Телефон12",
   "description": "Срочно"
 }
 
 ###
 
 # попытка поменять объявление
-PATCH {{baseUrl}}/advertisements/1/
+PATCH {{baseUrl}}/advertisements/6/
 Content-Type: application/json
 Authorization: Token 013bde0181b311844942f95efb90b394f12ac3d0
 
