@@ -25,13 +25,20 @@ Authorization: Token 013bde0181b311844942f95efb90b394f12ac3d0
 ###
 
 # попытка поменять объявление
-PATCH {{baseUrl}}/advertisements/6/
+PATCH {{baseUrl}}/advertisements/14/
 Content-Type: application/json
-Authorization: Token 013bde0181b311844942f95efb90b394f12ac3d0
+Authorization: Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
 
 {
   "status": "CLOSED"
 }
+
+###
+
+# попытка удалить объявление
+DELETE  {{baseUrl}}/advertisements/1/
+Content-Type: application/json
+Authorization: Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
 
 ###
 
