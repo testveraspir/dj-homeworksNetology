@@ -28,24 +28,35 @@ class AdvertisementViewSet(ModelViewSet):
             return [IsAuthenticated(), IsOwnerOrReadOnly()]
         return []
 
-    @action(detail=True, methods=["post"])
+    @action(detail=True, methods=["post", "delete"])
     def favorite(self, request, pk=None):
-        """Добавление объявления в избранное."""
+        """Добавление или удаление избранного объявления."""
 
-        advertisement = self.get_object()
         if not request.user.is_authenticated:
             return Response({"error": "Вы должны быть авторизованы,"
                                       " чтобы добавлять объявления в избранное."})
 
+        advertisement = self.get_object()
         if advertisement.creator == request.user:
             return Response({"error": "Нельзя добавлять в избранное"
                                       " собственные объявления."})
 
-        favorite, created = FavoriteAdvertisement.objects.get_or_create(user=request.user,
+        if request.method == "POST":
+            favorite, created = FavoriteAdvertisement.objects.get_or_create(user=request.user,
                                                                         advertisement=advertisement)
 
-        if created:
-            return Response({"message": "Объявление добавлено в избранное",
-                             "advertisement": model_to_dict(favorite)})
-        else:
-            return Response({"error": "Объявление уже есть в избранных."})
+            if created:
+                return Response({"message": "Объявление добавлено в избранное",
+                                 "advertisement": model_to_dict(favorite)})
+            else:
+                return Response({"error": "Объявление уже есть в избранных."})
+
+        if request.method == "DELETE":
+            try:
+                favorite = FavoriteAdvertisement.objects.get(user=request.user,
+                                                             advertisement=advertisement)
+                favorite.delete()
+                return Response({"message": "Объявление успешно удалено из избранных."})
+            except FavoriteAdvertisement.DoesNotExist:
+                return Response({"error": "Объявление в избранных нет."})
+        return Response({"error": "Что-то пошло не так."})
