@@ -1,4 +1,6 @@
-django
-djangorestframework
+django~=5.1.7
+djangorestframework~=3.16.0
 psycopg2-binary
-django-filter
+django-filter~=25.1
+
+python-dotenv~=1.1.0
