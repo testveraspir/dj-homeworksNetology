@@ -18,7 +18,7 @@ Content-Type: application/json
 Authorization: Token 013bde0181b311844942f95efb90b394f12ac3d0
 
 {
-  "title": "Телефон12",
+  "title": "Телевизор",
   "description": "Срочно"
 }
 
@@ -57,3 +57,4 @@ Content-Type: application/json
 # фильтрация по статусу
 GET {{baseUrl}}/advertisements/?status=CLOSED
 Content-Type: application/json
+Authorization: Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
