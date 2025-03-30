@@ -62,9 +62,9 @@ Authorization: Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
 ###
 
 # Добавить в избранное
-POST {{baseUrl}}/advertisements/4/favorite/
+POST {{baseUrl}}/advertisements/6/favorite/
 Content-Type:application/json
-Authorization:Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
+Authorization:Token 71ccf5bca2b3e3b98060e3fcf880e512ad049b2d
 
 ###
 
@@ -74,3 +74,8 @@ Content-Type:application/json
 Authorization:Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
 
 ###
+
+# Получить избранные объявления
+GET {{baseUrl}}/advertisements/?is_favorite=True
+Content-Type:application/json
+Authorization:Token 71ccf5bca2b3e3b98060e3fcf880e512ad049b2d
