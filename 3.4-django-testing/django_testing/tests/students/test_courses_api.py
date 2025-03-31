@@ -5,7 +5,6 @@ from rest_framework.test import APIClient
 
 from students.models import Course, Student
 
-
 URL_COURSES = '/api/v1/courses/'
 
 
@@ -18,6 +17,7 @@ def client():
 def course_factory():
     def factory(*args, **kwargs):
         return baker.make(Course, *args, **kwargs)
+
     return factory
 
 
@@ -25,6 +25,7 @@ def course_factory():
 def student_factory():
     def factory(*args, **kwargs):
         return baker.make(Student, *args, **kwargs)
+
     return factory
 
 
@@ -139,3 +140,21 @@ def test_delete_course(client, course_factory):
     assert response.status_code == 204
     assert Course.objects.count() == count - 1
     assert course_id not in [course.id for course in Course.objects.all()]
+
+
+@pytest.mark.parametrize(
+    ['max_students', 'count_students', 'expected_status'],
+    ((5, 4, 201),
+     (5, 5, 201),
+     (5, 6, 400))
+)
+@pytest.mark.django_db
+# проверка ограничения количество студентов на курсе
+def test_limit_students_settings(settings, client, max_students,
+                                 count_students, expected_status, student_factory):
+    settings.MAX_STUDENTS_PER_COURSE = max_students
+    students = student_factory(_quantity=count_students)
+    data_course = {'name': 'test name',
+                   'students': [student.id for student in students]}
+    response = client.post('/api/v1/courses/', data=data_course)
+    assert response.status_code == expected_status
