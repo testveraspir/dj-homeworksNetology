@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.forms import model_to_dict
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
@@ -6,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from advertisements.filters import AdvertisementFilter
-from advertisements.models import Advertisement, FavoriteAdvertisement
+from advertisements.models import Advertisement, FavoriteAdvertisement, AdvertisementStatusChoices
 from advertisements.permissions import IsOwnerOrReadOnly
 from advertisements.serializers import AdvertisementSerializer
 
@@ -60,3 +61,18 @@ class AdvertisementViewSet(ModelViewSet):
             except FavoriteAdvertisement.DoesNotExist:
                 return Response({"error": "Объявление в избранных нет."})
         return Response({"error": "Что-то пошло не так."})
+
+    def get_queryset(self):
+        """
+        Фильтрует queryset, чтобы черновики были видны только автору и амину.
+        """
+        queryset = super().get_queryset()
+
+        if self.request.user.is_authenticated:
+
+            if self.request.user.is_staff:
+                return queryset
+            return queryset.filter(Q(status__in=[AdvertisementStatusChoices.OPEN, AdvertisementStatusChoices.CLOSED])
+                                   | Q(creator=self.request.user, status=AdvertisementStatusChoices.DRAFT))
+
+        return queryset.filter(status__in=[AdvertisementStatusChoices.OPEN, AdvertisementStatusChoices.CLOSED])

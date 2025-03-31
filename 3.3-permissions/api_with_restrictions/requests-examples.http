@@ -15,61 +15,62 @@ Content-Type: application/json
 # создание объявления
 POST {{baseUrl}}/advertisements/
 Content-Type: application/json
-Authorization: Token 013bde0181b311844942f95efb90b394f12ac3d0
+Authorization: Token 71ccf5bca2b3e3b98060e3fcf880e512ad049b2d
 
 {
-  "title": "Телевизор",
+  "title": "Лампа",
   "description": "Срочно"
 }
 
 ###
 
 # попытка поменять объявление
-PATCH {{baseUrl}}/advertisements/14/
+PATCH {{baseUrl}}/advertisements/16/
 Content-Type: application/json
-Authorization: Token 71ccf5bca2b3e3b98060e3fcf880e512ad049b2d
+Authorization: Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
 
 {
-  "status": "CLOSED"
+  "status": "DRAFT"
 }
 
 ###
 
 # попытка удалить объявление
-DELETE  {{baseUrl}}/advertisements/14/
+DELETE  {{baseUrl}}/advertisements/16/
 Content-Type: application/json
 Authorization: Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
 
 ###
 
 # фильтрация по создателю
-GET {{baseUrl}}/advertisements/?creator=2
+GET {{baseUrl}}/advertisements/?creator=3
 Content-Type: application/json
+#Authorization: Token 71ccf5bca2b3e3b98060e3fcf880e512ad049b2d
 
 ###
 
 # фильтрация по дате
-GET {{baseUrl}}/advertisements/?created_at_after=2020-10-01
+GET {{baseUrl}}/advertisements/?created_at_after=2025-03-31
 Content-Type: application/json
 
 ###
 
 # фильтрация по статусу
-GET {{baseUrl}}/advertisements/?status=CLOSED
+GET {{baseUrl}}/advertisements/?status=DRAFT
 Content-Type: application/json
-Authorization: Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
+#Authorization: Token 71ccf5bca2b3e3b98060e3fcf880e512ad049b2d
 
 ###
 
 # Добавить в избранное
-POST {{baseUrl}}/advertisements/6/favorite/
+POST {{baseUrl}}/advertisements/9/favorite/
 Content-Type:application/json
 Authorization:Token 71ccf5bca2b3e3b98060e3fcf880e512ad049b2d
 
 ###
 
 # Удалить из избранного
-DELETE {{baseUrl}}/advertisements/4/favorite/
+DELETE {{baseUrl}}/advertisements/9/favorite/
 Content-Type:application/json
 Authorization:Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
 
@@ -78,4 +79,4 @@ Authorization:Token 26944f00e3b9bef1e6b2acec08634d0b526ee28e
 # Получить избранные объявления
 GET {{baseUrl}}/advertisements/?is_favorite=True
 Content-Type:application/json
-Authorization:Token 71ccf5bca2b3e3b98060e3fcf880e512ad049b2d
+#Authorization:Token 71ccf5bca2b3e3b98060e3fcf880e512ad049b2d
